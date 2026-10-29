@@ -2,7 +2,7 @@
     "name": "drdothouse/sw6-monthly-delivery",
     "description": "Dynamische, monatliche Versand- und Bestellschluss-Termine je Lieferant für Shopware 6.7",
     "type": "shopware-platform-plugin",
-    "version": "2.0.2",
+    "version": "2.0.3",
     "license": "MIT",
     "authors": [
         {

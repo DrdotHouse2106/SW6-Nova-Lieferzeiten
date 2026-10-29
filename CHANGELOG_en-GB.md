@@ -1,3 +1,7 @@
+# 2.0.3
+- Delivery profiles are now also validated when written via the Admin API (deadline time, excluded months, occurrence); invalid values are rejected
+- An invalid stored profile is logged once per PHP process instead of on every product load
+
 # 2.0.2
 - New plugin icon in Nova style
 - Repository renamed to SW6-Nova-Lieferzeiten

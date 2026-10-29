@@ -1,3 +1,7 @@
+# 2.0.3
+- Lieferprofile werden jetzt auch beim Speichern über die Admin-API (WaWi, Skripte) geprüft – Bestellschluss-Uhrzeit (HH:MM oder HH:MM:SS), ausgeschlossene Monate (nur 1–12, nicht alle zwölf) und Vorkommen (kein 0). Ungültige Werte werden mit einer Fehlermeldung abgelehnt statt gespeichert
+- Ist ein bereits gespeichertes Profil ungültig, wird das nur noch einmal je PHP-Prozess geloggt statt bei jedem Produktladen
+
 # 2.0.2
 - Neues Plugin-Icon im Nova-Stil (Erweiterungen → Meine Erweiterungen)
 - Repository umbenannt in SW6-Nova-Lieferzeiten – alte Adresse leitet weiter

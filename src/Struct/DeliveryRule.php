@@ -44,7 +44,7 @@ final class DeliveryRule
         if ($deadlineOffsetDays < 0 || $deadlineOffsetDays > 27) {
             throw new \InvalidArgumentException('deadlineOffsetDays muss zwischen 0 und 27 liegen.');
         }
-        if (!preg_match('/^([01]\d|2[0-3]):[0-5]\d(:[0-5]\d)?$/', $deadlineTime)) {
+        if (!self::isValidDeadlineTime($deadlineTime)) {
             throw new \InvalidArgumentException('deadlineTime muss im Format HH:MM oder HH:MM:SS angegeben werden.');
         }
         if (\count(array_unique($excludedMonths)) >= 12) {
@@ -55,6 +55,35 @@ final class DeliveryRule
                 throw new \InvalidArgumentException('excludedMonths darf nur Werte von 1 bis 12 enthalten.');
             }
         }
+    }
+
+    public static function isValidDeadlineTime(string $value): bool
+    {
+        return preg_match('/^([01]\d|2[0-3]):[0-5]\d(:[0-5]\d)?$/', $value) === 1;
+    }
+
+    /**
+     * Strenge Prüfung beim Speichern (wie in der Admin-Maske): nur Zahlen 1–12, getrennt durch Komma,
+     * Semikolon oder Leerzeichen, nicht alle 12 Monate. Gibt die Fehlermeldung zurück oder null.
+     */
+    public static function excludedMonthsError(?string $value): ?string
+    {
+        if ($value === null || trim($value) === '') {
+            return null;
+        }
+
+        $months = [];
+        foreach (preg_split('/[\s,;]+/', trim($value)) ?: [] as $part) {
+            if ($part === '') {
+                continue;
+            }
+            if (!ctype_digit($part) || (int) $part < 1 || (int) $part > 12) {
+                return 'excludedMonths darf nur Werte von 1 bis 12 enthalten.';
+            }
+            $months[(int) $part] = true;
+        }
+
+        return \count($months) >= 12 ? 'Es dürfen nicht alle 12 Monate ausgeschlossen werden.' : null;
     }
 
     /**

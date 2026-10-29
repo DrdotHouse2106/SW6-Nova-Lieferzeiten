@@ -9,6 +9,11 @@
             <tag name="shopware.entity.definition" entity="dmd_delivery_profile"/>
         </service>
 
+        <!-- Lieferprofile beim Speichern über die DAL prüfen (Admin-API, WaWi) -->
+        <service id="DrDotHouse\MonthlyDelivery\Core\Content\DeliveryProfile\Validation\DeliveryProfileWriteValidator">
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
         <!-- Berechnung & Auflösung -->
         <!-- Store-API: Extension „monthlyDelivery“ an Produkten ausgeben (Laufzeitfeld, wird nicht gespeichert) -->
         <service id="DrDotHouse\MonthlyDelivery\Core\Content\Product\ProductMonthlyDeliveryExtension">

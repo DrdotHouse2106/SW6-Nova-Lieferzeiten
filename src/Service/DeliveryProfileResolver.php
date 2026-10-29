@@ -40,6 +40,9 @@ class DeliveryProfileResolver implements ResetInterface
     /** @var array<string, array<string, mixed>> */
     private array $manufacturerCustomFields = [];
 
+    /** @var array<string, true> bereits geloggte ungültige Profile – je Prozess nur einmal, sonst Log-Flut */
+    private array $loggedInvalid = [];
+
     /**
      * @param EntityRepository<DeliveryProfileCollection> $profileRepository
      * @param EntityRepository<ProductManufacturerCollection> $manufacturerRepository
@@ -130,6 +133,10 @@ class DeliveryProfileResolver implements ResetInterface
         try {
             return $profile->toRule();
         } catch (\InvalidArgumentException $e) {
+            if (isset($this->loggedInvalid[$profile->getId()])) {
+                return null;
+            }
+            $this->loggedInvalid[$profile->getId()] = true;
             $this->logger->error('MonthlyDelivery: Lieferprofil "{profile}" ist ungültig: {message}', [
                 'profile' => $profile->getTechnicalName(),
                 'message' => $e->getMessage(),
