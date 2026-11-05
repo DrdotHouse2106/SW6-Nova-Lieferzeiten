@@ -80,6 +80,10 @@ Known pitfalls from real installations. **Please add new ones** (or open an issu
 - **Outdated date after profile change:** clear the HTTP cache.
 - **App shows no date:** requires 2.0.0 (Store API field).
 
+## How this plugin was made
+
+This plugin was developed with the help of AI (Claude by Anthropic). The requirements come from running several Shopware shops day to day; the code was written and revised with AI. It is checked with automated tests and static analysis (where present in the repository), regular security reviews of the code and in production use in the author's own shops. Still: use at your own risk and without warranty (see license). Please report bugs and suggestions as an issue. More background: [SW6-Nova-Plugins](https://github.com/DrdotHouse2106/SW6-Nova-Plugins).
+
 ## License
 
 MIT – see [LICENSE](LICENSE).
